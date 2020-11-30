@@ -1,0 +1,86 @@
+.fondo_login{
+    background-image: url("fondo_login.png");
+    background-size: cover;
+}
+.cuadro{
+    width: 300px;
+    height: 300px;
+    margin: auto;
+}
+.cuadro a{
+    color: white;
+}
+.login{
+    text-align: center;
+    color: #ffffff;
+    background-color: rgb(0, 81, 255);
+    height: 15%;
+    border: 3px solid black;
+}
+.login_admin{
+    text-align: center;
+    color: #ffffff;
+    background-color: rgb(0, 81, 255);
+    height: 15%;
+    border: 3px solid black;
+    font-size: 0.75em;
+}
+.form{
+    text-align: center;
+    border: 3px solid black;
+}
+.input{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.boton{
+    margin: auto;
+    width: 300px;
+    height: 15%;
+    background-color: rgb(0, 81, 255);
+    color: white;
+    border: 3px solid black;
+    margin-bottom: 15px;
+}
+.titulo{
+    text-align: center;
+    color: white;
+}
+.fondo{
+    background-image: url("fondo.png");
+    background-size: cover;
+}
+.lista_menu{
+    background-image: url("fondo_botones.png");
+    margin: auto;
+    width: 90%;    
+    text-align: center;
+}
+.menu_horizontal{
+    display: inline;
+}
+.enlaces_menu{
+    text-decoration: none;
+    padding: 70px;
+    color: white;
+}
+.fuente{
+    font-family: 'Piedra', cursive;
+    color: white;
+    text-align: center;
+}
+li:hover{
+    background-color: black;
+}
+.foto_inicio{
+    margin: auto;
+    width: 60%;
+    height: 60%;
+    margin-top: 50px;
+}
+.titulo_inicio{
+    margin-top: 30px;
+}
+.usuario input{
+    margin: 10px;
+}
