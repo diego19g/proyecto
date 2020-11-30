@@ -11,12 +11,12 @@ $email=$_REQUEST['email'];
     //declaro una variable de sesion
 $_SESSION['email']=$_REQUEST['email'];    
 $pass=$_REQUEST['password'];
-/*if($email=="" && $pass==""){
-    header('Location:cliente/menu_cliente.php');//redirigir a otra pagina
-}*/
 if($email=="" && $pass==""){
-    header('Location:admin/menu_admin.php');//redirigir a otra pagina
+    header('Location:cliente/inicio_cliente.php');//redirigir a otra pagina
 }
+/*if($email=="" && $pass==""){
+    header('Location:admin/inicio_admin.php');//redirigir a otra pagina
+}*/
 }
 else{
 echo'<!DOCTYPE html>

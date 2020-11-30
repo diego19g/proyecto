@@ -19,7 +19,9 @@ if(isset($_REQUEST['registrar'])){
     mysqli_query($c,"INSERT $tabla (dni,nombre,email,contraseña) VALUES ('$dni','$nombre','$email','$contrasena')");
 
     if (mysqli_errno($c)==0){
-        echo "<br><br><h2>USUARIO AÑADIDO</b></H2><br><br>";
+        echo "<br><br><h2>USUARIO AÑADIDO</b></H2><br><br>";?>
+        <a href="index.php" class="enlaces_menu">Volver a la página de inicio</a>
+        <?php
     }else{
         if (mysqli_errno($c)==1062){
             echo "<h2>No ha podido añadirse el registro<br>Ya existe un campo con estos datos</h2>";
