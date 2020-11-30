@@ -19,8 +19,7 @@ if(isset($_REQUEST['registrar'])){
     mysqli_query($c,"INSERT $tabla (dni,nombre,email,contraseña) VALUES ('$dni','$nombre','$email','$contrasena')");
 
     if (mysqli_errno($c)==0){
-        echo "<br><br><h2>ADMINISTRADOR AÑADIDO</b></H2>
-        <a href="login.php">Volver a la página de inicio</a>";
+        echo "<br><br><h2>ADMINISTRADOR AÑADIDO</b></H2>";
     }else{
         if (mysqli_errno($c)==1062){
             echo "<h2>No ha podido añadirse el registro<br>Ya existe un campo con estos datos</h2>";
@@ -55,6 +54,7 @@ echo'<!DOCTYPE html>
                 <input name="registrar" type="submit" id="registrar" value="REGISTRAR USUARIO"/>
             </fieldset>
         </form>
+        <a href="login.php" class="enlaces_menu">Volver a la página de inicio</a>
     </body>
 </html>';
 }

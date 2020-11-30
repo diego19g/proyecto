@@ -11,20 +11,33 @@ mysqli_select_db($c,$base);
 
 if(isset($_REQUEST['consultar'])){
     $dni=$_REQUEST['dni'];
+?>
+	<table border="1" style="margin: auto; margin-top: 200px;" >
+		<tr>
+			<td>DNI</td>
+			<td>NOMBRE</td>
+			<td>EMAIL</td>
+			<td>CONTRASEÑA</td>
+		</tr>
 
-    $resultado=mysqli_query($c,"SELECT * FROM $tabla  WHERE (dni='$dni'))");
+		<?php 
+		$sql="SELECT * FROM $tabla WHERE dni='$dni'";
+		$result=mysqli_query($c,$sql);
 
-    echo "<table align=center border=2>";
+		while($mostrar=mysqli_fetch_array($result)){
+		 ?>
 
-    while ($registro = mysqli_fetch_row($resultado)){
-
-       echo "<tr>";
-       foreach($registro  as $clave){
-       echo "<td>",$clave,"</td>";
-        }
-    }
-    echo "</table>";
-
+		<tr>
+			<td><?php echo $mostrar['dni'] ?></td>
+			<td><?php echo $mostrar['nombre'] ?></td>
+			<td><?php echo $mostrar['email'] ?></td>
+			<td><?php echo $mostrar['contraseña'] ?></td>
+		</tr>
+	<?php 
+	}
+	 ?>
+	</table>
+<?php
  mysqli_close($c); 
 
 }else{
@@ -33,7 +46,8 @@ if(isset($_REQUEST['consultar'])){
 <form action="" method="POST">
 <fieldset>
     <label>Introduce el DNI del cliente a consultar:</label>
-    <input name="dni"/><br>
+    <input name="dni"/><br><br>
+    <input name="consultar" type="submit" id="consultar" value="CONSULTAR CLIENTE"/>
 </fieldset>
 </form>
 ';

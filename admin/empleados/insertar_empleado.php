@@ -14,10 +14,10 @@ if(isset($_REQUEST['insertar'])){
     $nombre=$_REQUEST['nombre'];
     $email=$_REQUEST['email'];
     $contrasena=$_REQUEST['contrasena'];
+    $codigo=1900;
 
-
-    print'<br>Datos del empleado:<br>DNI:'.$dni.'<br>Nombre del empleado: '.$nombre.'<br>Email del empleado'.$email.'<br>Contraseña del empleado: '.$contrasena.'<br>';
-    mysqli_query($c,"INSERT $tabla (dni,nombre,email,contraseña) VALUES ('$codigo','$dni','$email','$contrasena')");
+    print'<br>Datos del empleado:<br>DNI:'.$dni.'<br>Nombre del empleado: '.$nombre.'<br>Email del empleado: '.$email.'<br>Contraseña del empleado: '.$contrasena.'<br>';
+    mysqli_query($c,"INSERT $tabla (dni,nombre,email,contraseña,codigo_tienda) VALUES ('$dni','$nombre','$email','$contrasena','$codigo')");
 
     if (mysqli_errno($c)==0){
         echo "<br><br><h2>Registro AÑADIDO</b></H2>";
@@ -44,7 +44,8 @@ if(isset($_REQUEST['insertar'])){
     <label>Indique el email del empleado:</label>
     <input name="email"/><br>
     <label>Indique la contraseña del empleado:</label>
-    <input name="contrasena" type="password"/><br>    
+    <input name="contrasena" type="password"/><br><br>
+    <p>Se le asignará el código de la tienda 1900, que es el código que tiene la tienda sobre la que estamos trabajando</p><br><br>    
     <input name="insertar" type="submit" id="insertar" value="INSERTAR DATOS"/>
 </fieldset>
 </form>

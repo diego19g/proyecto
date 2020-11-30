@@ -11,13 +11,13 @@ mysqli_select_db($c,$base);
 
 if(isset($_REQUEST['modificar'])){
     $dni=$_REQUEST['dni'];
-    $dni2=$_REQUEST['dni2']
+    $dni2=$_REQUEST['dni2'];
     $nombre=$_REQUEST['nombre'];
     $email=$_REQUEST['email'];
     $contrasena=$_REQUEST['contrasena'];
 
     print'<br>Datos nuevos del empleado:<br>DNI:'.$dni.'<br>Nombre del empleado: '.$nombre.'<br>Email del empleado'.$email.'<br>Contraseña del empleado: '.$contrasena.'<br>';
-    mysqli_query($c,"UPDATE $tabla SET dni=$dni2 nombre=$nombre email=$email contraseña=$contrasena WHERE dni='$dni'");
+    mysqli_query($c,"UPDATE $tabla SET dni='$dni2',nombre='$nombre',email='$email',contraseña='$contrasena' WHERE dni='$dni'");
     if (mysqli_errno($c)==0){
         echo "<br><br>Registro actualizado"; 
     }else{ 
@@ -38,16 +38,16 @@ if(isset($_REQUEST['modificar'])){
 <fieldset>
     <label>Introduce el DNI del empleado a modificar:</label>
     <input name="dni"/><br><br>
-    <h1>Introduce los nuevos datos del empleado</h1><br><br>
+    <h1>Introduce los nuevos datos del empleado</h1>
     <label>Introduce el DNI del empleado:</label>
-    <input name="dni2"/><br><br>
+    <input name="dni2"/><br>
     <label>Indique el nombre del empleado:</label>
     <input name="nombre"/><br>
     <label>Indique el email del empleado:</label>
     <input name="email"/><br>
     <label>Indique la contraseña del empleado:</label>
-    <input name="contrasena" type="password"/><br>    
-    <input name="modificar" type="submit" id="modificar" value="Modificar compra"/>
+    <input name="contrasena" type="password"/><br><br>
+    <input name="modificar" type="submit" id="modificar" value="MODIFICAR EMPLEADO"/>
 </fieldset>
 </form>
 ';

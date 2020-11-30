@@ -33,7 +33,7 @@ if(isset($_REQUEST['eliminar'])){
 <fieldset>
     <label>Introduce el DNI del cliente a borrar:</label>
     <input name="dni"/><br><br>
-    <input name="eliminar" type="submit" id="eliminar" value="ELIMINAR EMPLEADO"/>
+    <input name="eliminar" type="submit" id="eliminar" value="ELIMINAR CLIENTE"/>
 </fieldset>
 </form>
 ';
