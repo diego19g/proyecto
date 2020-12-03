@@ -19,33 +19,48 @@ if(isset($_REQUEST['modificar'])){
     $result=mysqli_query($c,$sql);
     
     if($mostrar=mysqli_fetch_array($result)==true){
-        mysqli_query($c,"UPDATE $tabla SET dni='$dni2',nombre='$nombre',email='$email',contraseña='$contrasena' WHERE dni='$dni'");
-        if (mysqli_errno($c)==0){
-            echo "<br><br>Registro actualizado"; 
-            print'<br><br>Datos nuevos del cliente:<br>DNI:'.$dni2.'<br>Nombre del cliente: '.$nombre.'<br>Email del cliente'.$email;
-            ?><br><br>
+        if(!preg_match("/^[a-zA-Z0-9._-]+[@admin]+\.([a-zA-Z]{2,4})+$/",$email)){
+            if(preg_match("/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})+$/",$email)){
+                mysqli_query($c,"UPDATE $tabla SET dni='$dni2',nombre='$nombre',email='$email' WHERE dni='$dni'");
+                if (mysqli_errno($c)==0){
+                    echo "<br><br>Registro actualizado"; 
+                    print'<br><br>Datos nuevos del cliente:<br>DNI:'.$dni2.'<br>Nombre del cliente: '.$nombre.'<br>Email del cliente: '.$email;
+                    ?><br><br>
+                    <a href="modificar_cliente.php" class="enlaces_menu">Volver a Modificar</a>
+                    <?php
+                }else{ 
+                    if (mysqli_errno($c)==1062){
+                        echo "<br><br><h2>No ha podido modificarse el registro<br>Ya existe un campo con estos datos</h2>"; 
+                        ?><br><br>
+                        <a href="modificar_cliente.php" class="enlaces_menu">Volver atrás</a>
+                        <?php
+                    }else{  
+                        $numerror=mysqli_errno($c); 
+                        $descrerror=mysqli_error($c); 
+                        echo "Se ha producido un error nº $numerror que corresponde a: $descrerror  <br>"; 
+                    } 
+                
+                }
+            }else{
+                echo "<br><br>EL FORMATO DEL EMAIL NO ES CORRECTO";
+                ?>
+                <br><br><br><br>
+                <a href="modificar_cliente.php" class="enlaces_menu">Volver a la página de Modificar</a>
+                <?php
+            }
+    
+        }else{
+            echo "<br><br>NO ES POSIBLE QUE UN CLIENTE TENGA EMAIL DE ADMINISTRADOR";?>
+            <br><br><br><br>
             <a href="modificar_cliente.php" class="enlaces_menu">Volver a Modificar</a>
             <?php
-        }else{ 
-            if (mysqli_errno($c)==1062){
-                echo "<h2>No ha podido modificarse el registro<br>Ya existe un campo con estos datos</h2>"; 
-                ?><br><br>
-                <a href="modificar_cliente.php" class="enlaces_menu">Volver atrás</a>
-                <?php
-            }else{  
-                $numerror=mysqli_errno($c); 
-                $descrerror=mysqli_error($c); 
-                echo "Se ha producido un error nº $numerror que corresponde a: $descrerror  <br>"; 
-            } 
-        
         }
     }else{
-        echo "NO EXISTE UN CLIENTE CON ESE DNI";?><br><br>
-
+        echo "<br><br>NO EXISTE UN CLIENTE CON ESE DNI";?><br><br>
         <a href="modificar_cliente.php" class="enlaces_menu">Volver atrás</a>
-
         <?php
     }
+
     mysqli_close($c);     
 }else{
     print '
