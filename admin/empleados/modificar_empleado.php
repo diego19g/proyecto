@@ -16,24 +16,43 @@ if(isset($_REQUEST['modificar'])){
     $email=$_REQUEST['email'];
     $contrasena=$_REQUEST['contrasena'];
 
-    print'<br>Datos nuevos del empleado:<br>DNI:'.$dni.'<br>Nombre del empleado: '.$nombre.'<br>Email del empleado'.$email.'<br>Contraseña del empleado: '.$contrasena.'<br>';
-    mysqli_query($c,"UPDATE $tabla SET dni='$dni2',nombre='$nombre',email='$email',contraseña='$contrasena' WHERE dni='$dni'");
-    if (mysqli_errno($c)==0){
-        echo "<br><br>Registro actualizado"; 
-    }else{ 
-        if (mysqli_errno($c)==1062){
-            echo "<h2>No ha podido añadirse el registro<br>Ya existe un campo con estos datos</h2>"; 
-        }else{  
-            $numerror=mysqli_errno($c); 
-            $descrerror=mysqli_error($c); 
-            echo "Se ha producido un error nº $numerror que corresponde a: $descrerror  <br>"; 
-        } 
+    $sql="SELECT * FROM $tabla WHERE dni='$dni'";
+    $result=mysqli_query($c,$sql);
     
+    if($mostrar=mysqli_fetch_array($result)==true){
+        mysqli_query($c,"UPDATE $tabla SET dni='$dni2',nombre='$nombre',email='$email',contraseña='$contrasena' WHERE dni='$dni'");
+        if (mysqli_errno($c)==0){
+            echo "<br><br>Registro actualizado"; 
+            print'<br><br>Datos nuevos del empleado:<br>DNI:'.$dni2.'<br>Nombre del empleado: '.$nombre.'<br>Email del empleado'.$email;
+            ?><br><br>
+            <a href="modificar_empleado.php" class="enlaces_menu">Volver a Modificar</a>
+            <?php
+        }else{ 
+            if (mysqli_errno($c)==1062){
+                echo "<h2>No ha podido modificarse el registro<br>Ya existe un campo con estos datos</h2>"; 
+                ?><br><br>
+                <a href="modificar_empleado.php" class="enlaces_menu">Volver atrás</a>
+                <?php
+            }else{  
+                $numerror=mysqli_errno($c); 
+                $descrerror=mysqli_error($c); 
+                echo "Se ha producido un error nº $numerror que corresponde a: $descrerror  <br>"; 
+            } 
+        
+        }
+    }else{
+        echo "NO EXISTE UN EMPLEADO CON ESE DNI";?><br><br>
+
+        <a href="modificar_empleado.php" class="enlaces_menu">Volver atrás</a>
+
+        <?php
     }
+
+
     mysqli_close($c);     
 }else{
     print '
-<h2>RELLENA LOS SIGUIENTES CAMPOS PARA MODIFICAR UN EMPLEADO</h2>
+<h2>RELLENA LOS SIGUIENTES CAMPOS PARA MODIFICAR UN EMPLEADO (NO ES POSIBLE MODIFICAR LA CONTRASEÑA)</h2>
 <form action="" method="POST">
 <fieldset>
     <label>Introduce el DNI del empleado a modificar:</label>
