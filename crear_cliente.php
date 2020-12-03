@@ -16,12 +16,12 @@ if(isset($_REQUEST['registrar'])){
     $contrasena=$_REQUEST['contrasena'];
 
     if(!preg_match("/^[a-zA-Z0-9._-]+[@admin]+\.([a-zA-Z]{2,4})+$/",$email)){
-        if(!preg_match("/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})+$/",$email)){
+        if(preg_match("/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})+$/",$email)){
             mysqli_query($c,"INSERT $tabla (dni,nombre,email,contraseña) VALUES ('$dni','$nombre','$email','$contrasena')");
         
             if (mysqli_errno($c)==0){
                 echo "<br><br><h2>USUARIO AÑADIDO</b></H2><br><br>";
-                print'<br>Datos del registro:<br>DNI:'.$dni.'<br>NOMBRE: '.$nombre.'<br>EMAIL DEL USUARIO'.$email;?>
+                print'<br>Datos del registro:<br>DNI:'.$dni.'<br>NOMBRE: '.$nombre.'<br>EMAIL DEL USUARIO'.$email;?><br><br>
                 <a href="index.php" class="enlaces_menu">Volver a la página de inicio</a>
                 <?php
             }else{
