@@ -15,21 +15,46 @@ if(isset($_REQUEST['registrar'])){
     $email=$_REQUEST['email'];
     $contrasena=$_REQUEST['contrasena'];
 
-    print'<br>Datos del registro:<br>DNI:'.$dni.'<br>NOMBRE: '.$nombre.'<br>EMAIL DEL USUARIO'.$email;
-    mysqli_query($c,"INSERT $tabla (dni,nombre,email,contraseña) VALUES ('$dni','$nombre','$email','$contrasena')");
-
-    if (mysqli_errno($c)==0){
-        echo "<br><br><h2>USUARIO AÑADIDO</b></H2><br><br>";?>
+    if(!preg_match("/^[a-zA-Z0-9._-]+[@admin]+\.([a-zA-Z]{2,4})+$/",$email)){
+        if(!preg_match("/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})+$/",$email)){
+            mysqli_query($c,"INSERT $tabla (dni,nombre,email,contraseña) VALUES ('$dni','$nombre','$email','$contrasena')");
+        
+            if (mysqli_errno($c)==0){
+                echo "<br><br><h2>USUARIO AÑADIDO</b></H2><br><br>";
+                print'<br>Datos del registro:<br>DNI:'.$dni.'<br>NOMBRE: '.$nombre.'<br>EMAIL DEL USUARIO'.$email;?>
+                <a href="index.php" class="enlaces_menu">Volver a la página de inicio</a>
+                <?php
+            }else{
+                if (mysqli_errno($c)==1062){
+                    echo "<h2>No ha podido añadirse el registro<br>Ya existe un campo con estos datos</h2>";
+                    ?>
+                    <br><br><br><br>
+                    <a href="crear_cliente.php" class="enlaces_menu">Volver a la página de registro</a>
+                    <br><br><br><br><br>
+                    <a href="index.php" class="enlaces_menu">Volver a la página de inicio</a>
+                    <?php
+                }else{ 
+                    $numerror=mysqli_errno($c);
+                    $descrerror=mysqli_error($c);
+                    echo "Se ha producido un error nº $numerror que corresponde a: $descrerror  <br>";
+                }
+            }
+        }else{
+            echo "EL FORMATO DEL EMAIL NO ES CORRECTO";
+            ?>
+            <br><br><br><br>
+            <a href="crear_cliente.php" class="enlaces_menu">Volver a la página de registro</a>
+            <br><br><br><br><br>
+            <a href="index.php" class="enlaces_menu">Volver a la página de inicio</a>
+            <?php
+        }
+    }else{
+        echo "NO ES POSIBLE CREAR UN USUARIO CLIENTE COMO ADMINISTRADOR";?>
+        <br><br><br><br>
+        <a href="crear_cliente.php" class="enlaces_menu">Volver a la página de registro</a>
+        <br><br><br><br><br>
         <a href="index.php" class="enlaces_menu">Volver a la página de inicio</a>
         <?php
-    }else{
-        if (mysqli_errno($c)==1062){
-            echo "<h2>No ha podido añadirse el registro<br>Ya existe un campo con estos datos</h2>";
-        }else{ 
-            $numerror=mysqli_errno($c);
-            $descrerror=mysqli_error($c);
-            echo "Se ha producido un error nº $numerror que corresponde a: $descrerror  <br>";
-        }
     }
 
     mysqli_close($c); 

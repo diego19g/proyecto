@@ -16,22 +16,33 @@ if(isset($_REQUEST['registrar'])){
     $contrasena=$_REQUEST['contrasena'];
     $codigo=1900;
 
-    print'<br>Datos del registro:<br>DNI:'.$dni.'<br>NOMBRE: '.$nombre.'<br>EMAIL DEL USUARIO: '.$email;
-    mysqli_query($c,"INSERT $tabla (dni,nombre,email,contraseña,codigo_tienda) VALUES ('$dni','$nombre','$email','$contrasena','$codigo')");
-
-    if (mysqli_errno($c)==0){
-        echo "<br><br><h2>ADMINISTRADOR AÑADIDO</b></H2>";?>
+    if(!preg_match("/^[a-zA-Z0-9._-]+[@admin]+\.([a-zA-Z]{2,4})+$/",$email)){
+        echo "¡EL FORMATO DEL EMAIL NO ES CORRECTO!";?>
+        <br><br><br><br>
+        <a href="crear_admin.php" class="enlaces_menu">Volver a la página de registro</a>
+        <br><br><br><br><br>
         <a href="index.php" class="enlaces_menu">Volver a la página de inicio</a>
         <?php
-    }else{
-        if (mysqli_errno($c)==1062){
-            echo "<h2>No ha podido añadirse el registro<br>Ya existe un campo con estos datos</h2>";
-        }else{ 
-            $numerror=mysqli_errno($c);
-            $descrerror=mysqli_error($c);
-            echo "Se ha producido un error nº $numerror que corresponde a: $descrerror  <br>";
+    }else{        
+        mysqli_query($c,"INSERT $tabla (dni,nombre,email,contraseña,codigo_tienda) VALUES ('$dni','$nombre','$email','$contrasena','$codigo')");
+    
+        if (mysqli_errno($c)==0){
+            echo "<br><br><h2>ADMINISTRADOR AÑADIDO</b></H2>";
+            print'<br>Datos del registro:<br>DNI:'.$dni.'<br>NOMBRE: '.$nombre.'<br>EMAIL DEL USUARIO: '.$email;?>
+            <br><br>
+            <a href="index.php" class="enlaces_menu">Volver a la página de inicio</a>
+            <?php
+        }else{
+            if (mysqli_errno($c)==1062){
+                echo "<h2>No ha podido añadirse el registro<br>Ya existe un campo con estos datos</h2>";
+            }else{ 
+                $numerror=mysqli_errno($c);
+                $descrerror=mysqli_error($c);
+                echo "Se ha producido un error nº $numerror que corresponde a: $descrerror  <br>";
+            }
         }
     }
+    
 
     mysqli_close($c); 
 }
