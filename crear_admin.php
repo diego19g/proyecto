@@ -35,6 +35,12 @@ if(isset($_REQUEST['registrar'])){
         }else{
             if (mysqli_errno($c)==1062){
                 echo "<h2>No ha podido añadirse el registro<br>Ya existe un campo con estos datos</h2>";
+                ?>
+                <br><br><br><br>
+                <a href="crear_cliente.php" class="enlaces_menu">Volver a la página de registro</a>
+                <br><br><br><br><br>
+                <a href="index.php" class="enlaces_menu">Volver a la página de inicio</a>
+                <?php
             }else{ 
                 $numerror=mysqli_errno($c);
                 $descrerror=mysqli_error($c);
