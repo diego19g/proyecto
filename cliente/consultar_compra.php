@@ -4,7 +4,6 @@ include "menu_cliente.php";
 $base="diegogarcia"; 
 
 $tabla="compran"; 
-$electrodomesticos="electrodomesticos";
 
 $c=mysqli_connect("localhost","diegogarcia","diegogarcia"); 
 
@@ -14,13 +13,87 @@ if(isset($_REQUEST['consultar'])){
     $dni=$_REQUEST['dni'];
     $codigo=$_REQUEST['codigo'];
 
+    switch ($codigo) {
+        case 1:
+            $tipo="lavadora";
+            $marca="balay";
+            break;
+        case 2:
+            $tipo="lavadora";
+            $marca="beko";
+            break;    
+        case 3:
+            $tipo="lavadora";
+            $marca="siemens";
+            break;
+        case 4:
+            $tipo="lavadora";
+            $marca="aeg";
+            break; 
+        case 5:
+            $tipo="lavadora";
+            $marca="bosch";
+            break;
+        case 6:
+            $tipo="lavadora";
+            $marca="fagor";
+            break;   
+        case 7:
+            $tipo="frigorifico";
+            $marca="balay";
+            break;
+        case 8:
+            $tipo="frigorifico";
+            $marca="beko";
+            break;    
+        case 9:
+            $tipo="frigorifico";
+            $marca="siemens";
+            break;
+        case 10:
+            $tipo="frigorifico";
+            $marca="aeg";
+            break;    
+        case 11:
+            $tipo="frigorifico";
+            $marca="bosch";
+            break;
+         case 12:
+            $tipo="frigorifico";
+            $marca="fagor";
+            break;    
+        case 13:
+            $tipo="lavavajillas";
+            $marca="balay";
+            break;    
+        case 14:
+            $tipo="lavavajillas";
+            $marca="beko";
+            break;    
+        case 15:
+            $tipo="lavavajillas";
+            $marca="siemens";
+            break;    
+        case 16:
+            $tipo="lavavajillas";
+            $marca="aeg";
+            break;    
+        case 17:
+            $tipo="lavavajillas";
+            $marca="bosch";
+            break;    
+        case 18:
+            $tipo="lavavajillas";
+            $marca="fagor";
+            break;    
+    }
 
     ?>
-	<table border="1" style="margin: auto; margin-top: 200px; text-align:center;" >
+	<table border="1" style="margin: auto; margin-top: 200px;" >
 		<tr>
 			<td>DNI</td>
-			<td>CODIGO ELECTRODOMÉSTICO</td>
-            <td>TIPO</td>
+			<td>CÓDIGO ELECTRODOMÉSTICO</td>
+			<td>TIPO</td>
             <td>MARCA</td>
             <td>PRECIO</td>
 		</tr>
@@ -28,34 +101,24 @@ if(isset($_REQUEST['consultar'])){
 		<?php 
 		$sql="SELECT * FROM $tabla WHERE dni='$dni'";
 		$result=mysqli_query($c,$sql);
-        if($mostrar=mysqli_fetch_array($result)==true){
-            $sql2="SELECT tipo,marca,precio FROM $electrodomesticos WHERE codigo_electrodomesticos='$codigo'";
-            $result2=mysqli_query($c,$sql2);
-            while($mostrar2=mysqli_fetch_array($result2)){
-                ?>                                   
-               <tr>
-                    <td><?php echo $dni ?></td>
-                    <td><?php echo $codigo ?></td>			                           
-                    <td><?php echo $mostrar2['tipo'] ?></td>
-                    <td><?php echo $mostrar2['marca'] ?></td>			
-                    <td><?php echo $mostrar2['precio'] ?></td>	
-                </tr>
-                <?php
-            }
-   
-        }else{            
-            echo "NO EXISTE UNA COMPRA CON ESE DNI Y ELECTRODOMÉSTICO";
-            ?>
-            <br><br>        
-            <a href="consultar_compra.php" class="enlaces_menu">Volver a consultar compra</a>
-            <?php
-	    }
-	 ?>
-    </table>
-    <br><br>        
-    <a href="consultar_compra.php" class="enlaces_menu">Volver a consultar compra</a>
-<?php
 
+		while($mostrar=mysqli_fetch_array($result)){
+		 ?>
+
+		<tr>
+			<td><?php echo $mostrar['dni'] ?></td>
+			<td><?php echo $mostrar['codigo_electrodomesticos'] ?></td>
+			<td><?php echo $tipo?></td>
+            <td><?php echo $marca?></td>
+            <td><?php echo $precio?></td>
+		</tr>
+	<?php 
+	}
+	 ?>
+	</table>
+	<br><br>        
+    <a href="consultar_cliente.php" class="enlaces_menu">Volver a consultar cliente</a>
+<?php
  mysqli_close($c); 
 
 }else{
