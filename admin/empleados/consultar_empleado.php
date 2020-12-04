@@ -17,7 +17,6 @@ if(isset($_REQUEST['consultar'])){
 			<td>DNI</td>
 			<td>NOMBRE</td>
 			<td>EMAIL</td>
-			<td>CONTRASEÑA</td>
 		</tr>
 
 		<?php 
@@ -31,7 +30,6 @@ if(isset($_REQUEST['consultar'])){
 			<td><?php echo $mostrar['dni'] ?></td>
 			<td><?php echo $mostrar['nombre'] ?></td>
 			<td><?php echo $mostrar['email'] ?></td>
-			<td><?php echo $mostrar['contraseña'] ?></td>
 		</tr>
 	<?php 
 	}
