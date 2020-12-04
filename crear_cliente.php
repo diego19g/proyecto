@@ -21,7 +21,7 @@ if(isset($_REQUEST['registrar'])){
         
             if (mysqli_errno($c)==0){
                 echo "<br><br><h2>USUARIO AÑADIDO</b></H2><br><br>";
-                print'<br>Datos del registro:<br>DNI:'.$dni.'<br>NOMBRE: '.$nombre.'<br>EMAIL DEL USUARIO'.$email;?><br><br>
+                print'<br>Datos del registro:<br>DNI:'.$dni.'<br>NOMBRE: '.$nombre.'<br>EMAIL DEL USUARIO: '.$email;?><br><br>
                 <a href="index.php" class="enlaces_menu">Volver a la página de inicio</a>
                 <?php
             }else{

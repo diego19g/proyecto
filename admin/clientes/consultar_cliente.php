@@ -23,18 +23,30 @@ if(isset($_REQUEST['consultar'])){
 		$sql="SELECT * FROM $tabla WHERE dni='$dni'";
 		$result=mysqli_query($c,$sql);
 
-		while($mostrar=mysqli_fetch_array($result)){
-		 ?>
+		if($mostrar=mysqli_fetch_array($result)==true){
+			while($mostrar=mysqli_fetch_array($result)){
+				?>
+	   
+			   <tr>
+				   <td><?php echo $mostrar['dni'] ?></td>
+				   <td><?php echo $mostrar['nombre'] ?></td>
+				   <td><?php echo $mostrar['email'] ?></td>
+			   </tr>
+		   <?php 
+		   }
+		}else{
+			echo "NO EXISTE UN CLIENTE CON ESE DNI";
+			?>		
+			<br><br>        
+			<a href="consultar_compra.php" class="enlaces_menu">Volver a consultar cliente</a>
+			<?php
+		}
 
-		<tr>
-			<td><?php echo $mostrar['dni'] ?></td>
-			<td><?php echo $mostrar['nombre'] ?></td>
-			<td><?php echo $mostrar['email'] ?></td>
-		</tr>
-	<?php 
-	}
+
 	 ?>
 	</table>
+	<br><br>        
+    <a href="consultar_compra.php" class="enlaces_menu">Volver a consultar cliente</a>
 <?php
  mysqli_close($c); 
 
