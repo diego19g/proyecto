@@ -95,7 +95,7 @@ if(isset($_REQUEST['consultar'])){
 			<td>CÓDIGO ELECTRODOMÉSTICO</td>
 			<td>TIPO</td>
             <td>MARCA</td>
-           
+            <td>PRECIO</td>           
 		</tr>
 
 		<?php 
@@ -110,7 +110,7 @@ if(isset($_REQUEST['consultar'])){
 			<td><?php echo $mostrar['codigo_electrodomesticos'] ?></td>
 			<td><?php echo $tipo?></td>
             <td><?php echo $marca?></td>
-           
+            <td><?php echo $precio?></td>
 		</tr>
 	<?php 
 	}
