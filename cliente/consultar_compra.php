@@ -95,11 +95,11 @@ if(isset($_REQUEST['consultar'])){
 			<td>CÓDIGO ELECTRODOMÉSTICO</td>
 			<td>TIPO</td>
             <td>MARCA</td>
-            <td>PRECIO</td>
+           
 		</tr>
 
 		<?php 
-		$sql="SELECT * FROM $tabla WHERE dni='$dni'";
+		$sql="SELECT * FROM $tabla WHERE dni='$dni' AND codigo_electrodomesticos='$codigo'";
 		$result=mysqli_query($c,$sql);
 
 		while($mostrar=mysqli_fetch_array($result)){
@@ -110,14 +110,14 @@ if(isset($_REQUEST['consultar'])){
 			<td><?php echo $mostrar['codigo_electrodomesticos'] ?></td>
 			<td><?php echo $tipo?></td>
             <td><?php echo $marca?></td>
-            <td><?php echo $precio?></td>
+           
 		</tr>
 	<?php 
 	}
 	 ?>
 	</table>
 	<br><br>        
-    <a href="consultar_cliente.php" class="enlaces_menu">Volver a consultar cliente</a>
+    <a href="consultar_compra.php" class="enlaces_menu">Volver a consultar compra</a>
 <?php
  mysqli_close($c); 
 
