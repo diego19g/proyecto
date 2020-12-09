@@ -4,6 +4,7 @@ include "menu_cliente.php";
 $base="diegogarcia"; 
 
 $tabla="compran"; 
+$electrodomesticos="electrodomesticos";
 
 $c=mysqli_connect("localhost","diegogarcia","diegogarcia"); 
 
@@ -13,73 +14,43 @@ if(isset($_REQUEST['comprar'])){
     $dni=$_REQUEST['dni'];
     $tipo=$_REQUEST['tipo'];
     $marca=$_REQUEST['marca'];
-    if($tipo=="lavadora"){
-        if($marca=="balay"){
-            $codigo=1;
-        }
-        if($marca=="beko"){
-            $codigo=2;
-        }
-        if($marca=="siemens"){
-            $codigo=3;
-        }
-        if($marca=="aeg"){
-            $codigo=4;
-        }
-        if($marca=="bosch"){
-            $codigo=5;
-        }
-        if($marca=="fagor"){
-            $codigo=6;
-        }
-    }
-    if($tipo=="frigorifico"){
-        if($marca=="balay"){
-            $codigo=7;
-        }
-        if($marca=="beko"){
-            $codigo=8;
-        }
-        if($marca=="siemens"){
-            $codigo=9;
-        }
-        if($marca=="aeg"){
-            $codigo=10;
-        }
-        if($marca=="bosch"){
-            $codigo=11;
-        }
-        if($marca=="fagor"){
-            $codigo=12;
-        }
-    }
 
-    if($tipo=="lavavajillas"){
-        if($marca=="balay"){
-            $codigo=13;
-        }
-        if($marca=="beko"){
-            $codigo=14;
-        }
-        if($marca=="siemens"){
-            $codigo=15;
-        }
-        if($marca=="aeg"){
-            $codigo=16;
-        }
-        if($marca=="bosch"){
-            $codigo=17;
-        }
-        if($marca=="fagor"){
-            $codigo=18;
+    $sql="SELECT * FROM $electrodomesticos WHERE tipo='$tipo' AND marca='$marca'";
+    $result=mysqli_query($c,$sql);
+
+    if(empty($dni)){
+        echo "<br>HAS DEJADO EL CAMPO DNI VACÍO";
+    }else{
+        while($mostrar=mysqli_fetch_array($result)){
+            ?>
+            <table border="1" style="margin: auto; margin-top: 200px;" >
+                <tr>
+                    <td>DNI</td>
+                    <td>CÓDIGO ELECTRODOMÉSTICO</td>
+                    <td>TIPO</td>
+                    <td>MARCA</td>
+                    <td>PRECIO</td>           
+                </tr>            
+   
+                <tr>
+                    <td><?php echo $dni?></td>
+                    <td><?php echo $mostrar['codigo_electrodomesticos']?></td>
+                    <?php $codigo=$mostrar['codigo_electrodomesticos'];?>
+                    <td><?php echo $mostrar['tipo']?></td>
+                    <td><?php echo $mostrar['marca']?></td>
+                    <td><?php echo $mostrar['precio']?></td>
+                </tr>
+            <?php 
         }
     }
-
-    print'<br>Datos de la compra:<br>DNI:'.$dni.'<br>Tipo de electrodoméstico: '.$tipo.'<br>Marca del electrodoméstico'.$marca.'<br>Código del electrodoméstico: '.$codigo.'<br>¡APUNTA EL CODIGO PARA PODER IDENTIFICAR TU ELECTRODOMÉSTICO EN CASO DE MODIFICACIÓN O CANCELACIÓN DE LA COMPRA!';
+ ?>
+</table>
+<?php
     mysqli_query($c,"INSERT $tabla (codigo_electrodomesticos,dni) VALUES ('$codigo','$dni')");
 
     if (mysqli_errno($c)==0){
-        echo "<br><br><h2>Registro AÑADIDO</b></H2>";
+        echo "<br><br><h2>COMPRA REALIZADA</h2><br><br>¡¡APUNTA EL CÓDIGO DEL ELECTRODOMÉSTICO COMPRADO, TE SERÁ NECESARIO PARA CONSULTAR O MODIFICAR TU COMPRA!!";
+
     }else{
         if (mysqli_errno($c)==1062){
             echo "<h2>No ha podido añadirse el registro<br>Ya existe un campo con este DNI y este ELECTRODOMÉSTICO</h2>";

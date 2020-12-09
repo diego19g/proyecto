@@ -91,7 +91,7 @@ if(isset($_REQUEST['cancelar'])){
     print'<br>Datos de la cancelación:<br>DNI:'.$dni.'<br>Tipo: '.$tipo.'<br>Marca: '.$marca;
     mysqli_query($c,"DELETE FROM $tabla  WHERE (dni='$dni') AND (codigo_electrodomesticos=$codigo)");
     if (mysqli_errno($c)==0){
-        echo "<br><br>Registro actualizado"; 
+        echo "<br><br>Registro eliminado"; 
     }else{ 
         if (mysqli_errno($c)==1062){
             echo "<h2>No ha podido eliminarse el registro<br>No existe un campo con este DNI y este CÓDIGO</h2>"; 
