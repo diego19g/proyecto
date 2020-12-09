@@ -23,14 +23,14 @@ if(isset($_REQUEST['modificar'])){
             if(preg_match("/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})+$/",$email)){
                 mysqli_query($c,"UPDATE $tabla SET dni='$dni2',nombre='$nombre',email='$email' WHERE dni='$dni'");
                 if (mysqli_errno($c)==0){
-                    echo "<br><br>Registro actualizado"; 
+                    echo "<br><br>CLIENTE MODIFICADO"; 
                     print'<br><br>Datos nuevos del cliente:<br>DNI:'.$dni2.'<br>Nombre del cliente: '.$nombre.'<br>Email del cliente: '.$email;
                     ?><br><br>
                     <a href="modificar_cliente.php" class="enlaces_menu">Volver a Modificar</a>
                     <?php
                 }else{ 
                     if (mysqli_errno($c)==1062){
-                        echo "<br><br><h2>No ha podido modificarse el registro<br>Ya existe un campo con estos datos</h2>"; 
+                        echo "<br><br><h2>No ha podido modificarse el registro<br>Ya existe algún campo con estos datos</h2>"; 
                         ?><br><br>
                         <a href="modificar_cliente.php" class="enlaces_menu">Volver atrás</a>
                         <?php
