@@ -20,7 +20,7 @@ if(isset($_REQUEST['modificar'])){
     $result=mysqli_query($c,$sql);
     
     if($mostrar=mysqli_fetch_array($result)==true){
-        if(!preg_match("/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})+$/",$email)){
+       
             if(preg_match("/^[a-zA-Z0-9._-]+[@admin]+\.([a-zA-Z]{2,4})+$/",$email)){
                 mysqli_query($c,"UPDATE $tabla SET dni='$dni2',nombre='$nombre',email='$email' WHERE dni='$dni'");
                 if (mysqli_errno($c)==0){
@@ -49,12 +49,7 @@ if(isset($_REQUEST['modificar'])){
                 <a href="modificar_empleado.php" class="enlaces_menu">Volver a la página de Modificar</a>
                 <?php
             }
-        }else{
-            echo "<br><br>NO ES POSIBLE QUE UN ADMINISTRADOR TENGA EMAIL DE CLIENTE";?>
-            <br><br><br><br>
-            <a href="modificar_empleado.php" class="enlaces_menu">Volver a Modificar</a>
-            <?php
-        }
+   
     }else{
         echo "NO EXISTE UN EMPLEADO CON ESE DNI";?><br><br>
 
